@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
     private var bankName: String by mutableStateOf("")
     private var refNo: String by mutableStateOf("")
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             UPI_to_INVOICETheme {
