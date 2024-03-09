@@ -39,7 +39,6 @@ import java.util.Locale
 class MainActivity : ComponentActivity() {
 
     private val viewModel by viewModels<textviewmodel>()
-
     private var price: Double by mutableDoubleStateOf(0.0)
     private var secondId: String by mutableStateOf("")
     private var date: String by mutableStateOf("")
