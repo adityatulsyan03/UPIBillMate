@@ -22,7 +22,7 @@
         android:theme="@style/Theme.UPI_to_INVOICE"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".SignUp_Page"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.UPI_to_INVOICE"
@@ -38,6 +38,8 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+        <activity android:name=".Login_Page" />
+        <activity android:name=".Create_Page" />
     </application>
 
 </manifest>

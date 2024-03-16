@@ -3,7 +3,6 @@ package com.example.upi_to_invoice
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.Paint.Style
 import android.graphics.pdf.PdfDocument
 import android.os.Bundle
 import android.os.Environment
@@ -16,11 +15,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -28,7 +24,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.test.textviewmodel
 import com.example.upi_to_invoice.ui.theme.UPI_to_INVOICETheme
 import java.io.File
@@ -36,7 +31,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class MainActivity : ComponentActivity() {
+class Create_Page : ComponentActivity() {
 
     private val viewModel by viewModels<textviewmodel>()
     private var price: Double by mutableDoubleStateOf(0.0)
