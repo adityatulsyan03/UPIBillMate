@@ -46,30 +46,65 @@ class Login_Page : ComponentActivity() {
 fun login(activity: ComponentActivity) {
     Column (
         modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
             .padding(20.dp)
     ){
-        NormalTextField(value = "Hey There,")
+
+        NormalTextField(
+            value = "Hey There,"
+        )
+
         Spacer(modifier = Modifier.height(10.dp))
-        HeadingTextField(value = "Welcome Back")
+
+        HeadingTextField(
+            value = "Welcome Back"
+        )
+
         Spacer(modifier = Modifier.height(30.dp))
-        MyTextField("First Name", Icons.Filled.Person)
-        MyTextField("Second Name", Icons.Filled.Person)
-        MyTextField("Email Id", Icons.Filled.Email)
-        PasswordTextField("Password", Icons.Filled.Lock)
-        Button(onClick = {
-            Intent(activity.applicationContext, Create_Page::class.java).also {
-                activity.startActivity(it)
+
+        MyTextField(
+            labelValue = "UserName",
+            Icons.Filled.Person
+        )
+
+        PasswordTextField(
+            labelValue = "Password",
+            icon = Icons.Filled.Lock
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        CheckboxCotent(
+            value = "terms_and_conditions",
+            onTextSelected = {
+                Intent(activity.applicationContext,TermsAndConditions_Page::class.java).also {
+                    activity.startActivity(it)
+                }
             }
-        }) {
-            Text(text = "Register")
-        }
-        Button(onClick = {
-            Intent(activity.applicationContext, SignUp_Page::class.java).also {
-                activity.startActivity(it)
+        )
+
+        Spacer(modifier = Modifier.height(80.dp))
+
+        ButtonComponent(
+            value = "Login"
+        )
+
+        Spacer(modifier = Modifier.height(5.dp))
+
+        DividerTextComponent()
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        ClickableLoginTextComponent(
+            value1 = "Don't have an account yet?",
+            value2 = "Register",
+            onTextSelected = {
+                Intent(activity.applicationContext, SignUp_Page::class.java).also {
+                    activity.startActivity(it)
+                }
             }
-        }) {
-            Text(text = "Log In")
-        }
+        )
     }
 }
 

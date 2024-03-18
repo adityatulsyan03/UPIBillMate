@@ -39,6 +39,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Login_Page" />
+        <activity android:name=".TermsAndConditions_Page" />
         <activity android:name=".Create_Page" />
     </application>
 
