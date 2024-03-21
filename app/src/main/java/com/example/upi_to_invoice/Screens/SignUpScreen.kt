@@ -1,6 +1,5 @@
-package com.example.upi_to_invoice
+package com.example.upi_to_invoice.Screens
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,21 +13,25 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.startActivity
+import com.example.upi_to_invoice.Components.ButtonComponent
+import com.example.upi_to_invoice.Components.CheckboxCotent
+import com.example.upi_to_invoice.Components.ClickableLoginTextComponent
+import com.example.upi_to_invoice.Components.DividerTextComponent
+import com.example.upi_to_invoice.Components.HeadingTextField
+import com.example.upi_to_invoice.Components.MyTextField
+import com.example.upi_to_invoice.Components.NormalTextField
+import com.example.upi_to_invoice.Components.PasswordTextField
+import com.example.upi_to_invoice.Navigator.PostOfficeAppRouter
+import com.example.upi_to_invoice.Navigator.Screen
 import com.example.upi_to_invoice.ui.theme.UPI_to_INVOICETheme
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
-import kotlin.math.sign
 
-class SignUp_Page : ComponentActivity()  {
+class SignUp_Screen : ComponentActivity()  {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -38,7 +41,7 @@ class SignUp_Page : ComponentActivity()  {
                         .fillMaxSize()
                         .background(Color.White)
                 ) {
-                    Sign(activity = this)
+                    Sign()
                 }
             }
         }
@@ -46,7 +49,7 @@ class SignUp_Page : ComponentActivity()  {
 }
 
 @Composable
-fun Sign(activity: ComponentActivity) {
+fun Sign() {
     Column(
         modifier = Modifier
             .background(Color.White)
@@ -91,9 +94,7 @@ fun Sign(activity: ComponentActivity) {
         CheckboxCotent(
             value = "terms_and_conditions",
             onTextSelected = {
-                Intent(activity.applicationContext,TermsAndConditions_Page::class.java).also {
-                    activity.startActivity(it)
-                }
+                PostOfficeAppRouter.navigateTo(Screen.TermsAndConditionsScreen)
             }
         )
 
@@ -110,12 +111,9 @@ fun Sign(activity: ComponentActivity) {
         Spacer(modifier = Modifier.height(10.dp))
 
         ClickableLoginTextComponent(
-            value1 = "Already have an account?",
-            value2 = "Login",
+            tryingToLogin = false,
             onTextSelected = {
-                Intent(activity.applicationContext, Login_Page::class.java).also {
-                    activity.startActivity(it)
-                }
+                PostOfficeAppRouter.navigateTo(Screen.LogInScreen)
             }
         )
 
@@ -125,5 +123,5 @@ fun Sign(activity: ComponentActivity) {
 @Preview(showBackground = true)
 @Composable
 fun prev_sign() {
-    Sign(activity = ComponentActivity())
+    Sign()
 }

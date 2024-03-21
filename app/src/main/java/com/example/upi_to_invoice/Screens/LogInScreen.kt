@@ -1,6 +1,5 @@
-package com.example.upi_to_invoice
+package com.example.upi_to_invoice.Screens
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,19 +12,26 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.startActivity
+import com.example.upi_to_invoice.Components.ButtonComponent
+import com.example.upi_to_invoice.Components.CheckboxCotent
+import com.example.upi_to_invoice.Components.ClickableLoginTextComponent
+import com.example.upi_to_invoice.Components.DividerTextComponent
+import com.example.upi_to_invoice.Components.HeadingTextField
+import com.example.upi_to_invoice.Components.MyTextField
+import com.example.upi_to_invoice.Components.NormalTextField
+import com.example.upi_to_invoice.Components.PasswordTextField
+import com.example.upi_to_invoice.Components.UnderLinedNormalTextField
+import com.example.upi_to_invoice.Navigator.PostOfficeAppRouter
+import com.example.upi_to_invoice.Navigator.Screen
 import com.example.upi_to_invoice.ui.theme.UPI_to_INVOICETheme
 
-class Login_Page : ComponentActivity() {
+class Login_Screen : ComponentActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -35,7 +41,7 @@ class Login_Page : ComponentActivity() {
                         .fillMaxSize()
                         .background(Color.White)
                 ) {
-                    login(activity = this)
+                    login()
                 }
             }
         }
@@ -43,7 +49,7 @@ class Login_Page : ComponentActivity() {
 }
 
 @Composable
-fun login(activity: ComponentActivity) {
+fun login() {
     Column (
         modifier = Modifier
             .fillMaxSize()
@@ -64,8 +70,8 @@ fun login(activity: ComponentActivity) {
         Spacer(modifier = Modifier.height(30.dp))
 
         MyTextField(
-            labelValue = "UserName",
-            Icons.Filled.Person
+            labelValue = "Email",
+            Icons.Filled.Email
         )
 
         PasswordTextField(
@@ -75,12 +81,16 @@ fun login(activity: ComponentActivity) {
 
         Spacer(modifier = Modifier.height(10.dp))
 
+        UnderLinedNormalTextField(
+            value = "Forgot Password?"
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
         CheckboxCotent(
             value = "terms_and_conditions",
             onTextSelected = {
-                Intent(activity.applicationContext,TermsAndConditions_Page::class.java).also {
-                    activity.startActivity(it)
-                }
+                PostOfficeAppRouter.navigateTo(Screen.TermsAndConditionsScreen)
             }
         )
 
@@ -97,12 +107,8 @@ fun login(activity: ComponentActivity) {
         Spacer(modifier = Modifier.height(10.dp))
 
         ClickableLoginTextComponent(
-            value1 = "Don't have an account yet?",
-            value2 = "Register",
             onTextSelected = {
-                Intent(activity.applicationContext, SignUp_Page::class.java).also {
-                    activity.startActivity(it)
-                }
+                PostOfficeAppRouter.navigateTo(Screen.SignUpScreen)
             }
         )
     }
@@ -111,5 +117,5 @@ fun login(activity: ComponentActivity) {
 @Preview(showBackground = true)
 @Composable
 fun prev_login() {
-    login(activity = ComponentActivity())
+    login()
 }

@@ -31,7 +31,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class Create_Page : ComponentActivity() {
+class CreatePage : ComponentActivity() {
 
     private val viewModel by viewModels<textviewmodel>()
     private var price: Double by mutableDoubleStateOf(0.0)
