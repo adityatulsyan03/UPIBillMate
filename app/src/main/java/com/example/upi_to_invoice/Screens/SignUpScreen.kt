@@ -31,97 +31,87 @@ import com.example.upi_to_invoice.Navigator.PostOfficeAppRouter
 import com.example.upi_to_invoice.Navigator.Screen
 import com.example.upi_to_invoice.ui.theme.UPI_to_INVOICETheme
 
-class SignUp_Screen : ComponentActivity()  {
-    public override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            UPI_to_INVOICETheme{
-                Surface(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.White)
-                ) {
-                    Sign()
-                }
-            }
-        }
-    }
-}
-
 @Composable
-fun Sign() {
-    Column(
+fun SignUpScreen() {
+    Surface(
         modifier = Modifier
-            .background(Color.White)
-            .padding(20.dp)
             .fillMaxSize()
-    ) {
+            .background(Color.White)
+            .padding(28.dp)
+    ){
+        Column(
+            modifier = Modifier
+                .background(Color.White)
+                .padding(20.dp)
+                .fillMaxSize()
+        ) {
 
-        NormalTextField(
-            value = "Hey There,"
-        )
+            NormalTextField(
+                value = "Hey There,"
+            )
 
-        Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
-        HeadingTextField(
-            value = "Create An Account"
-        )
+            HeadingTextField(
+                value = "Create An Account"
+            )
 
-        Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(30.dp))
 
-        MyTextField(
-            labelValue = "First Name",
-            Icons.Filled.Person
-        )
+            MyTextField(
+                labelValue = "First Name",
+                Icons.Filled.Person
+            )
 
-        MyTextField(
-            labelValue = "Second Name",
-            Icons.Filled.Person
-        )
+            MyTextField(
+                labelValue = "Second Name",
+                Icons.Filled.Person
+            )
 
-        MyTextField(
-            labelValue = "Email Id",
-            Icons.Filled.Email
-        )
+            MyTextField(
+                labelValue = "Email Id",
+                Icons.Filled.Email
+            )
 
-        PasswordTextField(
-            labelValue = "Password",
-            Icons.Filled.Lock
-        )
+            PasswordTextField(
+                labelValue = "Password",
+                Icons.Filled.Lock
+            )
 
-        Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
-        CheckboxCotent(
-            value = "terms_and_conditions",
-            onTextSelected = {
-                PostOfficeAppRouter.navigateTo(Screen.TermsAndConditionsScreen)
-            }
-        )
+            CheckboxCotent(
+                value = "terms_and_conditions",
+                onTextSelected = {
+                    PostOfficeAppRouter.navigateTo(Screen.TermsAndConditionsScreen)
+                }
+            )
 
-        Spacer(modifier = Modifier.height(80.dp))
+            Spacer(modifier = Modifier.height(80.dp))
 
-        ButtonComponent(
-            value = "Register"
-        )
+            ButtonComponent(
+                value = "Register"
+            )
 
-        Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(5.dp))
 
-        DividerTextComponent()
+            DividerTextComponent()
 
-        Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
-        ClickableLoginTextComponent(
-            tryingToLogin = false,
-            onTextSelected = {
-                PostOfficeAppRouter.navigateTo(Screen.LogInScreen)
-            }
-        )
+            ClickableLoginTextComponent(
+                tryingToLogin = false,
+                onTextSelected = {
+                    PostOfficeAppRouter.navigateTo(Screen.LogInScreen)
+                }
+            )
 
+        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun prev_sign() {
-    Sign()
+    SignUpScreen()
 }

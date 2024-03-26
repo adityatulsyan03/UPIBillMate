@@ -31,91 +31,81 @@ import com.example.upi_to_invoice.Navigator.PostOfficeAppRouter
 import com.example.upi_to_invoice.Navigator.Screen
 import com.example.upi_to_invoice.ui.theme.UPI_to_INVOICETheme
 
-class Login_Screen : ComponentActivity() {
-    public override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            UPI_to_INVOICETheme {
-                Surface(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.White)
-                ) {
-                    login()
-                }
-            }
-        }
-    }
-}
-
 @Composable
-fun login() {
-    Column (
+fun LogInScreen() {
+    Surface(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(20.dp)
+            .padding(28.dp)
     ){
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White)
+                .padding(20.dp)
+        ) {
 
-        NormalTextField(
-            value = "Hey There,"
-        )
+            NormalTextField(
+                value = "Hey There,"
+            )
 
-        Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
-        HeadingTextField(
-            value = "Welcome Back"
-        )
+            HeadingTextField(
+                value = "Welcome Back"
+            )
 
-        Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(30.dp))
 
-        MyTextField(
-            labelValue = "Email",
-            Icons.Filled.Email
-        )
+            MyTextField(
+                labelValue = "Email",
+                Icons.Filled.Email
+            )
 
-        PasswordTextField(
-            labelValue = "Password",
-            icon = Icons.Filled.Lock
-        )
+            PasswordTextField(
+                labelValue = "Password",
+                icon = Icons.Filled.Lock
+            )
 
-        Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
-        UnderLinedNormalTextField(
-            value = "Forgot Password?"
-        )
+            UnderLinedNormalTextField(
+                value = "Forgot Password?"
+            )
 
-        Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
-        CheckboxCotent(
-            value = "terms_and_conditions",
-            onTextSelected = {
-                PostOfficeAppRouter.navigateTo(Screen.TermsAndConditionsScreen)
-            }
-        )
+            CheckboxCotent(
+                value = "terms_and_conditions",
+                onTextSelected = {
+                    PostOfficeAppRouter.navigateTo(Screen.TermsAndConditionsScreen)
+                }
+            )
 
-        Spacer(modifier = Modifier.height(80.dp))
+            Spacer(modifier = Modifier.height(80.dp))
 
-        ButtonComponent(
-            value = "Login"
-        )
+            ButtonComponent(
+                value = "Login"
+            )
 
-        Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(5.dp))
 
-        DividerTextComponent()
+            DividerTextComponent()
 
-        Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
-        ClickableLoginTextComponent(
-            onTextSelected = {
-                PostOfficeAppRouter.navigateTo(Screen.SignUpScreen)
-            }
-        )
+            ClickableLoginTextComponent(
+                onTextSelected = {
+                    PostOfficeAppRouter.navigateTo(Screen.SignUpScreen)
+                }
+            )
+        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun prev_login() {
-    login()
+fun prev_Login() {
+    LogInScreen()
 }
