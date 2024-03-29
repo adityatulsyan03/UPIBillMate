@@ -1,8 +1,5 @@
-package com.example.upi_to_invoice.Screens
+package com.example.upi_to_invoice.screens
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,8 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.upi_to_invoice.Components.HeadingTextField
-import com.example.upi_to_invoice.ui.theme.UPI_to_INVOICETheme
+import com.example.upi_to_invoice.PostOfficeApp
+import com.example.upi_to_invoice.components.HeadingTextField
+import com.example.upi_to_invoice.navigator.PostOfficeAppRouter
+import com.example.upi_to_invoice.navigator.Screen
+import com.example.upi_to_invoice.navigator.SystemBackButtonHandler
 
 @Composable
 fun TermsAndConditionsScreen() {
@@ -32,6 +32,10 @@ fun TermsAndConditionsScreen() {
             HeadingTextField(
                 value = "Term of Use"
             )
+        }
+
+        SystemBackButtonHandler {
+            PostOfficeAppRouter.navigateTo(Screen.SignUpScreen)
         }
     }
 }

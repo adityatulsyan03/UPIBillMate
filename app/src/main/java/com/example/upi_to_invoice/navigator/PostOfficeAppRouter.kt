@@ -1,4 +1,4 @@
-package com.example.upi_to_invoice.Navigator
+package com.example.upi_to_invoice.navigator
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -8,7 +8,7 @@ sealed class Screen(){
     object  SignUpScreen : Screen()
     object  TermsAndConditionsScreen : Screen()
     object LogInScreen : Screen()
-
+    object CreateInvoice : Screen()
 }
 
 object PostOfficeAppRouter {

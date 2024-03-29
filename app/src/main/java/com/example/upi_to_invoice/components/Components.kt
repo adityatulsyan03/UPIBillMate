@@ -1,7 +1,8 @@
-package com.example.upi_to_invoice.Components
+package com.example.upi_to_invoice.components
 
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -13,6 +14,8 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Logout
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
@@ -26,6 +29,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -86,7 +92,10 @@ fun HeadingTextField(value: String) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyTextField(labelValue: String, icon: ImageVector) {
+fun MyTextField(labelValue: String, icon: ImageVector,
+                onTextSelected: (String) -> Unit,
+                errorStatus: Boolean = false
+) {
 
     val textValue = remember { mutableStateOf("") }
 
@@ -99,7 +108,8 @@ fun MyTextField(labelValue: String, icon: ImageVector) {
         maxLines = 1,
         value = textValue.value,
         onValueChange = {
-            textValue.value = it
+            textValue.value = it;
+            onTextSelected(it)
         },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedLabelColor = Color.Black,
@@ -112,13 +122,17 @@ fun MyTextField(labelValue: String, icon: ImageVector) {
                 imageVector = icon,
                 contentDescription = "null"
             )
-        }
+        },
+        isError = !errorStatus
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PasswordTextField(labelValue: String, icon: ImageVector) {
+fun PasswordTextField(labelValue: String, icon: ImageVector,
+                      onTextSelected: (String) -> Unit,
+                      errorStatus: Boolean = false
+) {
 
     val localFocusManager = LocalFocusManager.current
 
@@ -138,7 +152,8 @@ fun PasswordTextField(labelValue: String, icon: ImageVector) {
         },
         value = password.value,
         onValueChange = {
-            password.value = it
+            password.value = it;
+            onTextSelected(it)
         },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedLabelColor = Color.Black,
@@ -179,12 +194,13 @@ fun PasswordTextField(labelValue: String, icon: ImageVector) {
         visualTransformation = if(passwordVisible.value)
             VisualTransformation.None
         else
-            PasswordVisualTransformation()
+            PasswordVisualTransformation(),
+        isError = !errorStatus
     )
 }
 
 @Composable
-fun CheckboxCotent(value: String, onTextSelected: (String)->Unit) {
+fun CheckboxCotent(value: String, onTextSelected: (String)->Unit, onCheckedChange : (Boolean) -> Unit) {
     Row(modifier = Modifier
         .fillMaxWidth()
         .heightIn(56.dp),
@@ -197,6 +213,7 @@ fun CheckboxCotent(value: String, onTextSelected: (String)->Unit) {
             checked = checkedState.value,
             onCheckedChange = {
                 checkedState.value = !checkedState.value
+                onCheckedChange.invoke(it)
             }
         )
         
@@ -240,16 +257,17 @@ fun ClickableTextComponent(value: String, onTextSelected: (String)->Unit) {
 }
 
 @Composable
-fun ButtonComponent(value: String) {
+fun ButtonComponent(value: String, onButtonClicked: () -> Unit, isEnabled : Boolean = false) {
     Button(
         onClick = {
-
+            onButtonClicked.invoke()
     },
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(48.dp),
         contentPadding = PaddingValues(),
-        colors = ButtonDefaults.buttonColors(Color.Transparent)
+        colors = ButtonDefaults.buttonColors(Color.Transparent),
+        enabled = isEnabled
     ) {
         Box(
             modifier = Modifier
@@ -361,4 +379,41 @@ fun UnderLinedNormalTextField(value: String) {
         textAlign = TextAlign.Center,
         textDecoration = TextDecoration.Underline
     )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AppToolBar(toolbarTitle:String,logOutButtonClicked : ()-> Unit) {
+    
+    TopAppBar(
+        colors = TopAppBarDefaults.topAppBarColors(
+            MaterialTheme.colorScheme.primary
+        ),
+        title = {
+            Text(
+                modifier = Modifier.padding(20.dp,0.dp),
+                text = toolbarTitle,
+                color = Color.White
+            )
+        },
+        navigationIcon = {
+            Icon(
+                imageVector = Icons.Filled.Menu,
+                contentDescription = "Menu",
+                tint = Color.White
+            )
+        },
+        actions = {
+            IconButton(onClick = {
+                logOutButtonClicked.invoke()
+            }) {
+                Icon(
+                    imageVector = Icons.Filled.Logout,
+                    contentDescription = "LogOut",
+                    tint = Color.White,
+                )
+            }
+        }
+    )
+    
 }

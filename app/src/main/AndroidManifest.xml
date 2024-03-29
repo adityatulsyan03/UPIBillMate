@@ -12,6 +12,7 @@
         tools:ignore="ScopedStorage" />
 
     <application
+        android:name=".UPIBillMate"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -38,7 +39,6 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreatePage" />
     </application>
 
 </manifest>

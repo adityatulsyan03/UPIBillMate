@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1043642570162",
+    "project_id": "upibillmate-28c89",
+    "storage_bucket": "upibillmate-28c89.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043642570162:android:451ace8c3fc672540400ab",
+        "android_client_info": {
+          "package_name": "com.example.upi_to_invoice"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyeR2WWJyETG7TvN8LfPTFP_enliJh5Ns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

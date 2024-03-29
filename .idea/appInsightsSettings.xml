@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.upi_to_invoice" />
+                  <option name="mobileSdkAppId" value="1:1043642570162:android:451ace8c3fc672540400ab" />
+                  <option name="projectId" value="upibillmate-28c89" />
+                  <option name="projectNumber" value="1043642570162" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
