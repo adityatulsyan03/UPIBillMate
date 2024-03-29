@@ -105,6 +105,7 @@ fun LogInScreen(loginViewModel: LoginViewModel = viewModel()) {
                 Spacer(modifier = Modifier.height(10.dp))
 
                 ClickableLoginTextComponent(
+                    tryingToLogin = false,
                     onTextSelected = {
                         PostOfficeAppRouter.navigateTo(Screen.SignUpScreen)
                     }
