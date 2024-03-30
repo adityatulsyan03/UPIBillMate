@@ -1,4 +1,4 @@
-package com.example.upi_to_invoice.data
+package com.example.upi_to_invoice.data.signUp
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
@@ -19,7 +19,7 @@ class SignUpViewModel : ViewModel() {
 
     var SignUpInProgress = mutableStateOf(false)
 
-    fun onEvent(event:SignUpUIEvent){
+    fun onEvent(event: SignUpUIEvent){
         when(event){
             is SignUpUIEvent.FirstNameChanged -> {
                 registrationUIState.value = registrationUIState.value.copy(
@@ -127,22 +127,5 @@ class SignUpViewModel : ViewModel() {
                 Log.d(TAG,"Exception = ${it.message}")
                 Log.d(TAG,"Exception = ${it.localizedMessage}")
             }
-    }
-
-    fun logout(){
-        val firebaseAuth = FirebaseAuth.getInstance()
-
-        firebaseAuth.signOut()
-
-        val authStateListener = AuthStateListener {
-            if(it.currentUser == null){
-                Log.d(TAG,"Inside sign out success")
-                PostOfficeAppRouter.navigateTo(Screen.LogInScreen)
-            }else{
-                Log.d(TAG,"Inside sign out is not completed")
-            }
-        }
-
-        firebaseAuth.addAuthStateListener(authStateListener)
     }
 }

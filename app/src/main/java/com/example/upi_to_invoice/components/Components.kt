@@ -6,9 +6,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
@@ -37,14 +42,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusModifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -53,8 +63,10 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.upi_to_invoice.data.NavigationItem
 
 @Composable
 fun NormalTextField(value: String) {
@@ -383,7 +395,8 @@ fun UnderLinedNormalTextField(value: String) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppToolBar(toolbarTitle:String,logOutButtonClicked : ()-> Unit) {
+fun AppToolBar(toolbarTitle:String,logOutButtonClicked : ()-> Unit,
+               navigationIconClicked : ()-> Unit) {
     
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
@@ -397,11 +410,15 @@ fun AppToolBar(toolbarTitle:String,logOutButtonClicked : ()-> Unit) {
             )
         },
         navigationIcon = {
-            Icon(
-                imageVector = Icons.Filled.Menu,
-                contentDescription = "Menu",
-                tint = Color.White
-            )
+            IconButton(onClick = {
+                navigationIconClicked.invoke()
+            }) {
+                Icon(
+                    imageVector = Icons.Filled.Menu,
+                    contentDescription = "Menu",
+                    tint = Color.White
+                )
+            }
         },
         actions = {
             IconButton(onClick = {
@@ -415,5 +432,82 @@ fun AppToolBar(toolbarTitle:String,logOutButtonClicked : ()-> Unit) {
             }
         }
     )
+}
+
+@Composable
+fun NavigationDrawerHeader(value: String?) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.2f)
+            .background(MaterialTheme.colorScheme.primary)
+            .padding(32.dp),
+        contentAlignment = Alignment.TopStart
+    ){
+        
+        NavigationDrawerText(
+            title = value?:"App Drawer",
+            textUnit = 24.sp
+        )
+        
+    }
+}
+
+@Composable
+fun NavigationDrawerBody(NavigationDrawerItems: List<NavigationItem>,
+                         onNavigationItemClicked: (NavigationItem) -> Unit) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxWidth()
+    ){
+
+        items(NavigationDrawerItems){
+            NavigationItemRow(item = it, onNavigationItemClicked)
+        }
+
+    }
+}
+
+@Composable
+fun NavigationItemRow(item: NavigationItem,
+                      onNavigationItemClicked: (NavigationItem) -> Unit) {
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                onNavigationItemClicked.invoke(item)
+            }
+            .padding(16.dp)
+    ){
+
+        Icon(
+            imageVector = item.icon,
+            contentDescription = item.description
+        )
+
+        Spacer(modifier = Modifier.width(18.dp))
+        
+        NavigationDrawerText(title = item.title, 18.sp)
+
+    }
+}
+
+@Composable
+fun NavigationDrawerText(title: String, textUnit: TextUnit) {
+
+    val shadowOffset = Offset(2f,4f)
     
+    Text(
+        text = title,
+        style = TextStyle(
+            color = Color.Black,
+            fontSize = textUnit,
+            fontStyle = FontStyle.Normal,
+            shadow = Shadow(
+                color = MaterialTheme.colorScheme.primary,
+                offset = shadowOffset, 2f
+            )
+        )
+    )
 }

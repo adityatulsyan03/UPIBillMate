@@ -28,8 +28,8 @@ import com.example.upi_to_invoice.components.HeadingTextField
 import com.example.upi_to_invoice.components.MyTextField
 import com.example.upi_to_invoice.components.NormalTextField
 import com.example.upi_to_invoice.components.PasswordTextField
-import com.example.upi_to_invoice.data.SignUpViewModel
-import com.example.upi_to_invoice.data.SignUpUIEvent
+import com.example.upi_to_invoice.data.signUp.SignUpViewModel
+import com.example.upi_to_invoice.data.signUp.SignUpUIEvent
 import com.example.upi_to_invoice.navigator.PostOfficeAppRouter
 import com.example.upi_to_invoice.navigator.Screen
 

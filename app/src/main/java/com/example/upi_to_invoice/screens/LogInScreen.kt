@@ -20,7 +20,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.upi_to_invoice.components.ButtonComponent
-import com.example.upi_to_invoice.components.CheckboxCotent
 import com.example.upi_to_invoice.components.ClickableLoginTextComponent
 import com.example.upi_to_invoice.components.DividerTextComponent
 import com.example.upi_to_invoice.components.HeadingTextField
@@ -28,8 +27,8 @@ import com.example.upi_to_invoice.components.MyTextField
 import com.example.upi_to_invoice.components.NormalTextField
 import com.example.upi_to_invoice.components.PasswordTextField
 import com.example.upi_to_invoice.components.UnderLinedNormalTextField
-import com.example.upi_to_invoice.data.LoginUIEvent
-import com.example.upi_to_invoice.data.LoginViewModel
+import com.example.upi_to_invoice.data.logIn.LoginUIEvent
+import com.example.upi_to_invoice.data.logIn.LoginViewModel
 import com.example.upi_to_invoice.navigator.PostOfficeAppRouter
 import com.example.upi_to_invoice.navigator.Screen
 import com.example.upi_to_invoice.navigator.SystemBackButtonHandler

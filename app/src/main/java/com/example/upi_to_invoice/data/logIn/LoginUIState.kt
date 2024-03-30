@@ -1,4 +1,4 @@
-package com.example.upi_to_invoice.data
+package com.example.upi_to_invoice.data.logIn
 
 data class LoginUIState(
     var email :String = "",

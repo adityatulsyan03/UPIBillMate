@@ -1,4 +1,4 @@
-package com.example.upi_to_invoice.data
+package com.example.upi_to_invoice.data.signUp
 
 data class RegistrationUIState(
     var firstName :String = "",
