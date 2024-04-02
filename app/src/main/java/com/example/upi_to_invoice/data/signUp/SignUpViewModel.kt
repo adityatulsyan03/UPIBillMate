@@ -7,7 +7,6 @@ import com.example.upi_to_invoice.data.rules.Validator
 import com.example.upi_to_invoice.navigator.PostOfficeAppRouter
 import com.example.upi_to_invoice.navigator.Screen
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 
 class SignUpViewModel : ViewModel() {
 

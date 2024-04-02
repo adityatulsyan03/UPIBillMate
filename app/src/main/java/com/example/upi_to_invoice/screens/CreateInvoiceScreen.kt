@@ -8,12 +8,21 @@ import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Storage
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -30,15 +39,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.upi_to_invoice.components.AppToolBar
 import com.example.upi_to_invoice.components.NavigationDrawerBody
 import com.example.upi_to_invoice.components.NavigationDrawerHeader
+import com.example.upi_to_invoice.data.SMSItem
 import com.example.upi_to_invoice.data.home.HomeViewModel
 import com.example.upi_to_invoice.data.textviewmodel
 import com.example.upi_to_invoice.navigator.PostOfficeAppRouter
 import com.example.upi_to_invoice.navigator.Screen
+import com.example.upi_to_invoice.navigator.SystemBackButtonHandler
 import com.example.upi_to_invoice.ui.theme.UPI_to_INVOICETheme
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.launch
 import java.io.File
 import java.text.SimpleDateFormat
@@ -59,6 +73,8 @@ fun CreateInvoice(
     var firstId: String by remember { mutableStateOf("") }
 
     var sms: String by remember { mutableStateOf("") }
+
+    val db = Firebase.firestore
 
     UPI_to_INVOICETheme(){
 
@@ -81,6 +97,7 @@ fun CreateInvoice(
                             when (selectedItem.itemId) {
                                 "homeScreen" -> PostOfficeAppRouter.navigateTo(Screen.CreateInvoice)
                                 "aboutScreen" -> PostOfficeAppRouter.navigateTo(Screen.AboutScreen)
+                                "storedSMSScreen" -> PostOfficeAppRouter.navigateTo(Screen.StoredSMS)
                             }
                         })
                 }
@@ -118,13 +135,16 @@ fun CreateInvoice(
                         TextField(
                             value = firstId,
                             onValueChange = { newid -> firstId = newid },
-                            placeholder = { Text("Enter Your Name or ID") }
+                            placeholder = { Text("Enter Your Name or ID") },
+                            singleLine = true
                         )
+                        Spacer(modifier = Modifier.height(10.dp))
                         TextField(
                             value = sms,
                             onValueChange = { newid -> sms = newid },
                             placeholder = { Text("Enter the sms") }
                         )
+                        Spacer(modifier = Modifier.height(25.dp))
                         Button(onClick = {
                             textviewmodel.updateline(sms)
                             if (textviewmodel.line.startsWith("Amt")) {
@@ -140,13 +160,38 @@ fun CreateInvoice(
                                 secondId = temp
                                 createPDF(price, firstId, secondId, date, bankName, refNo, "Credit")
                             }
+                            if(firstId != ""){
+                                val user = hashMapOf(
+                                    "your_id" to firstId,
+                                    "sms" to sms
+                                )
+
+                                homeViewModel.emailID.value?.let {
+                                    db.collection(it)
+                                        .add(user)
+                                        .addOnSuccessListener { documentReference ->
+                                            Log.d(
+                                                "saved",
+                                                "DocumentSnapshot added with ID: ${documentReference.id}"
+                                            )
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Log.d("Can't save", "Error adding document", e)
+                                        }
+                                }
+                            }
                             firstId = ""
                             sms = ""
                         }) {
                             Text("Create PDF")
                         }
+                        Spacer(modifier = Modifier.height(10.dp))
+                        Button(onClick = {
+                            homeViewModel.getSMS()
+                        }) {
+                            Text(text = "get data")
+                        }
                     }
-
                 }
 
             }
@@ -270,12 +315,16 @@ private fun createPDF(
         )
         pdf.finishPage(mypage1)
 
+        val folderName = "UPI Invoice"
+        val folder = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), folderName)
+        if (!folder.exists())
+            folder.mkdirs()
         val sdf = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.getDefault())
         val currentDataAndTime: String = sdf.format(Date())
         val fileName = "document_$currentDataAndTime.pdf"
         val file =
             File(
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                folder,
                 fileName
             )
         Log.d("FilePath", file.absolutePath)

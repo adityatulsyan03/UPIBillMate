@@ -1,6 +1,8 @@
 package com.example.upi_to_invoice.data.logIn
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.upi_to_invoice.data.rules.Validator
@@ -64,7 +66,6 @@ class LoginViewModel : ViewModel(){
             .addOnCompleteListener{
                 Log.d(TAG,"Inside Login Sucess")
                 Log.d(TAG, "isSuccessful = ${it.isSuccessful}")
-
                 if(it.isSuccessful) {
                     loginInProgress.value = false
                     PostOfficeAppRouter.navigateTo(Screen.CreateInvoice)

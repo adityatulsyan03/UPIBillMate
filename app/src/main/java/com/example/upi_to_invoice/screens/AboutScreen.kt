@@ -30,6 +30,7 @@ import com.example.upi_to_invoice.components.NormalTextField
 import com.example.upi_to_invoice.data.home.HomeViewModel
 import com.example.upi_to_invoice.navigator.PostOfficeAppRouter
 import com.example.upi_to_invoice.navigator.Screen
+import com.example.upi_to_invoice.navigator.SystemBackButtonHandler
 import com.example.upi_to_invoice.ui.theme.UPI_to_INVOICETheme
 import kotlinx.coroutines.launch
 
@@ -101,5 +102,10 @@ fun AboutScreen(
                 }
             }
         }
+
+        SystemBackButtonHandler {
+            PostOfficeAppRouter.navigateTo(Screen.CreateInvoice)
+        }
+
     }
 }

@@ -16,6 +16,7 @@ import com.example.upi_to_invoice.screens.AboutScreen
 import com.example.upi_to_invoice.screens.CreateInvoice
 import com.example.upi_to_invoice.screens.LogInScreen
 import com.example.upi_to_invoice.screens.SignUpScreen
+import com.example.upi_to_invoice.screens.StoredSMS
 import com.example.upi_to_invoice.screens.TermsAndConditionsScreen
 
 @Composable
@@ -48,6 +49,9 @@ fun PostOfficeApp(homeViewModel: HomeViewModel = viewModel()) {
                 }
                 is Screen.AboutScreen -> {
                     AboutScreen()
+                }
+                is Screen.StoredSMS -> {
+                    StoredSMS()
                 }
             }
         }
